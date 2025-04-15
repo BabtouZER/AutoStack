@@ -1,7 +1,7 @@
 FROM almalinux:9
 
 RUN dnf install -y epel-release && \
-    dnf install -y python3-pip openssh-clients sudo && \
+    dnf install -y python3 python3-pip openssh-clients sshpass sudo && \
     pip3 install ansible && \
     useradd -ms /bin/bash ansible && \
     echo "ansible:ansiblepass" | chpasswd && \
