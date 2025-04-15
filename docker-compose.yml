@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  ssh_server:
+    build: ./ssh_server
+    hostname: ssh_server
+    ports:
+      - "2222:22"
+
+  ansible_controller:
+    build: ./ansible_controller
+    volumes:
+      - ./ansible:/home/ansible/ansible
+    depends_on:
+      - ssh_server
+    command: >
+      bash -c "sleep 10 &&
+               ansible -i ansible/inventory all -m ping &&
+               ansible-playbook -i ansible/inventory ansible/playbook.yml"
