@@ -1,3 +1,4 @@
 PermitRootLogin no
 PasswordAuthentication yes
 AllowUsers user
+Subsystem sftp /usr/lib/openssh/sftp-server
