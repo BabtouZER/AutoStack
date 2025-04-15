@@ -16,4 +16,4 @@ services:
     command: >
       bash -c "sleep 10 &&
                ansible -i ansible/inventory all -m ping &&
-               ansible-playbook -i ansible/inventory ansible/playbook.yml"
+               ansible-playbook -i ansible/playbook.yml"

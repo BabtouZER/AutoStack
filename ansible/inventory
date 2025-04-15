@@ -1,4 +1,2 @@
 [web]
 ssh_server ansible_host=ssh_server ansible_user=user ansible_password=userpass ansible_port=22 ansible_ssh_common_args='-o StrictHostKeyChecking=no'
-[defaults]
-host_key_checking = False
