@@ -11,6 +11,8 @@ services:
       - ./ansible:/home/ansible/ansible
     depends_on:
       - ssh_server
+    environment:
+      - ANSIBLE_HOST_KEY_CHECKING=False
     command: >
       bash -c "sleep 10 &&
                ansible -i ansible/inventory all -m ping &&
