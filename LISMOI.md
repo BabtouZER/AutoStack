@@ -29,10 +29,12 @@ Pour cette étape, vous devez configurer un serveur SSH qui hébergera un serveu
 3. Utiliser `docker-compose` pour configurer le serveur.  
 4. Tester la connexion SSH au conteneur.
 
+```
 ┌──────────────┐          ┌──────────────┐
 |  (docker)    |  build   |  (docker)    |
 |  Debian      |  ====>   |  ssh_server  |
 └──────────────┘          └──────────────┘
+```
 
 
 ---
@@ -45,10 +47,12 @@ Pour cette étape, vous devez configurer un serveur SSH qui hébergera un serveu
 2. Lancer le conteneur avec une commande Ansible pour vérifier son bon fonctionnement (ex : `ansible --version`)  
 3. Exécuter le conteneur Ansible pour tester la communication entre les deux conteneurs (ex : `ansible hostname_ssh_server -m ping`)
 
+```
 ┌──────────────┐          ┌────────────────────┐
 |  (docker)    |  build   | (docker)           |
 |  AlmaLinux   |  ====>   | ansible_controller |
 └──────────────┘          └────────────────────┘
+```
 
 
 ---
@@ -61,6 +65,7 @@ Maintenant que nous avons un conteneur Ansible et un serveur SSH, nous allons cr
 2. Exécuter le playbook à l’aide du conteneur Ansible.  
 3. Tester le bon fonctionnement du serveur web avec `curl`.
 
+```
 ┌────────────── docker-compose ────────────────┐
 |                                              |
 |  ansible_controller                          |
@@ -71,17 +76,20 @@ Maintenant que nous avons un conteneur Ansible et un serveur SSH, nous allons cr
 |  ssh_server                                  |
 |                                              |
 └──────────────────────────────────────────────┘
+```
 
 
 ---
 
 ## 4. Bonus : Exécuter tout cela dans un GitLab CI
 
+```
 ┌────────────── gitlab-ci ──────────────────────────────────┐
 |                                                           |
 |  [Build] ---> [Deploy] ---> [Install Nginx] ---> [Test]   |
 |                                                           |
 └───────────────────────────────────────────────────────────┘
+```
 
 
 ### Liens utiles
