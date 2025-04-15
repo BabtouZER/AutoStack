@@ -18,8 +18,6 @@ Nous attendons que vous livriez un dépôt git et un court fichier Readme expliq
 - Intégrer Nginx avec Ansible : https://www.skynats.com/blog/how-to-integrate-nginx-with-ansible/  
 - Désactiver la vérification de clé hôte SSH : https://docs.ansible.com/ansible/latest/reference_appendices/config.html#host-key-checking  
 
----
-
 ## 1. Créer une image Docker de serveur SSH basée sur une image Debian-12
 
 Pour cette étape, vous devez configurer un serveur SSH qui hébergera un serveur Nginx :
@@ -37,8 +35,6 @@ Pour cette étape, vous devez configurer un serveur SSH qui hébergera un serveu
 ```
 
 
----
-
 ## 2. Créer une image Docker Ansible basée sur une image AlmaLinux-9
 
 À cette étape, vous devez créer un conteneur Docker capable d’exécuter une commande ou un playbook Ansible :
@@ -54,8 +50,6 @@ Pour cette étape, vous devez configurer un serveur SSH qui hébergera un serveu
 └──────────────┘          └────────────────────┘
 ```
 
-
----
 
 ## 3. Créer un playbook Ansible pour configurer un serveur web Nginx
 
@@ -78,8 +72,6 @@ Maintenant que nous avons un conteneur Ansible et un serveur SSH, nous allons cr
 └──────────────────────────────────────────────┘
 ```
 
-
----
 
 ## 4. Bonus : Exécuter tout cela dans un GitLab CI
 
