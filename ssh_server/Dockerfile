@@ -1,7 +1,7 @@
 FROM debian:12
 
 RUN apt-get update && \
-    apt-get install -y openssh-server sudo curl && \
+    apt-get install -y openssh-server python3 sudo curl && \
     useradd -ms /bin/bash user && \
     echo "user:userpass" | chpasswd && \
     echo "user ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
