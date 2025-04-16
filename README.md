@@ -1,4 +1,4 @@
-# Docker + Ansible Deployment Challenge
+# AutoStack
 
 ## 🌍 Purpose
 
