@@ -1,19 +1,47 @@
 services:
+    # Service for the SSH server that will host NGINX
   ssh_server:
-    build: ./ssh_server
+    build:
+      context: ./ssh_server
+    container_name: ssh_server
     hostname: ssh_server
     ports:
       - "2222:22"
-
-  ansible_controller:
-    build: ./ansible_controller
     volumes:
-      - ./ansible:/home/ansible/ansible
+      - ./ssh_server/sshd_config:/etc/ssh/sshd_config
+    networks:
+      - app_network
+    restart: unless-stopped
+    environment:
+      - TZ=Europe/Paris
+
+  # Service for the Ansible controller
+  ansible_controller:
+    build:
+      context: ./ansible_controller
+    container_name: ansible_controller
+    hostname: ansible_controller
     depends_on:
       - ssh_server
-    environment:
-      - ANSIBLE_HOST_KEY_CHECKING=False
+    volumes:
+      - ./ansible:/home/ansible/ansible
+    networks:
+      - app_network
     command: >
       bash -c "sleep 10 &&
-               ansible -i ansible/inventory all -m ping &&
-               ansible-playbook -i ansible/playbook.yml"
+               ansible -i ansible/inventory all -m ping && 
+               ansible-playbook -i ansible/inventory ansible/playbook.yml
+               tail -f /dev/null"
+    restart: on-failure
+    environment:
+      - ANSIBLE_HOST_KEY_CHECKING=False  # Disable SSH key verification for development
+      - TZ=Europe/Paris
+
+# network for the communication between services
+networks:
+  app_network:
+    driver: bridge
+
+# volumes to persist data
+volumes:
+  ansible_data:

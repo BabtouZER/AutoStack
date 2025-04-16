@@ -1,5 +1,16 @@
-- name: Install and configure NGINX
-  hosts: web
+- name: Install and start NGINX
+  hosts: all
   become: yes
-  roles:
-    - nginx
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install NGINX
+      apt:
+        name: nginx
+        state: present
+
+    - name: Start NGINX manually
+      become: yes
+      shell: nginx

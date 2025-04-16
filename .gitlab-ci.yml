@@ -1,30 +1,45 @@
+# Docker-Ansible-Gitlab CI/CD Pipeline
+
+# pipeline stages
 stages:
   - build
   - deploy
   - test
+  - cleanup
 
-variables:
-  DOCKER_HOST: tcp://docker:2375/
-  DOCKER_DRIVER: overlay2
-
-services:
-  - docker:dind
-
-before_script:
-  - docker info
-
-build:
+# build images Docker
+build_images:
   stage: build
   script:
-    - docker-compose build
+    - echo "Building Docker images for ssh_server and ansible_controller"
+    - docker-compose -f docker-compose.yml build
+  tags:
+    - docker
 
-deploy:
+# Ansible stages
+deploy_nginx:
   stage: deploy
   script:
-    - docker-compose up -d
-    - sleep 15
+    - echo "Deploying NGINX using Ansible"
+    - docker-compose up -d ssh_server ansible_controller
+    - docker-compose exec ansible_controller ansible-playbook -i ansible/inventory ansible/playbook.yml
+  tags:
+    - docker
 
-test:
+# nginx tests
+test_nginx:
   stage: test
   script:
-    - docker exec ansible_controller curl -s http://ssh_server | grep nginx
+    - echo "Testing NGINX deployment"
+    - docker-compose exec ssh_server curl localhost:80
+  tags:
+    - docker
+
+# cleaning after deployment
+cleanup:
+  stage: cleanup
+  script:
+    - echo "Cleaning up containers"
+    - docker-compose down
+  tags:
+    - docker
