@@ -1,4 +1,4 @@
-# Défi de Déploiement avec Docker + Ansible
+# AutoStack
 
 ## 🌍 Objectif
 
