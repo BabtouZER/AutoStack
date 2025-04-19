@@ -1,29 +1,22 @@
-# Docker-Ansible-Gitlab CI/CD Pipeline
-
-# use a Docker image that has access to Docker + install docker-compose
 image: docker:latest
 
 services:
-  - docker:dind
+  - name: docker:19.03.12
+    alias: docker
 
 variables:
-  DOCKER_HOST: tcp://docker:2375/
-  DOCKER_TLS_CERTDIR: ""
   DOCKER_DRIVER: overlay2
-  COMPOSE_DOCKER_CLI_EXPERIMENTAL: "enabled"
-  DOCKER_BUILDKIT: "1"
 
 before_script:
   - apk add --no-cache docker-compose
 
-# pipeline stages
 stages:
   - build
   - deploy
   - test
   - cleanup
 
-# build images Docker
+# build images
 build_images:
   stage: build
   script:
@@ -32,7 +25,7 @@ build_images:
   tags:
     - docker
 
-# Ansible stages
+# deploy nginx
 deploy_nginx:
   stage: deploy
   script:
@@ -42,7 +35,7 @@ deploy_nginx:
   tags:
     - docker
 
-# nginx tests
+# test nginx
 test_nginx:
   stage: test
   script:
@@ -51,7 +44,7 @@ test_nginx:
   tags:
     - docker
 
-# cleaning after deployment
+# cleanup
 cleanup:
   stage: cleanup
   script:
