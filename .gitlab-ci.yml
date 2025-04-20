@@ -34,6 +34,7 @@ deploy_nginx:
     - docker-compose up -d ssh_server ansible_controller
     - sleep 10
     - docker-compose exec ansible_controller ansible-playbook -i ansible/inventory ansible/playbook.yml
+    - docker-compose exec ssh_server curl localhost:80
   tags:
     - docker
 
