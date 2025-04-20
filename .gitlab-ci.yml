@@ -1,6 +1,6 @@
 # Docker-Ansible-Gitlab CI/CD Pipeline
 
-image: docker:20.10.16  # une version stable qui supporte tout bien
+image: docker:20.10.16  # stable version
 
 services:
   - docker:20.10.16-dind
@@ -27,6 +27,7 @@ build_images:
   tags:
     - docker
 
+# deploiment and tests
 deploy_nginx:
   stage: deploy
   script:
