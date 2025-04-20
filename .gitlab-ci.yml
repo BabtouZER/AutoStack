@@ -32,6 +32,7 @@ deploy_nginx:
   script:
     - echo "Deploying NGINX using Ansible"
     - docker-compose up -d ssh_server ansible_controller
+    - sleep 10
     - docker-compose exec ansible_controller ansible-playbook -i ansible/inventory ansible/playbook.yml
   tags:
     - docker
