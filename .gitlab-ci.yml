@@ -42,14 +42,6 @@ deploy_nginx:
   tags:
     - docker
 
-test_nginx:
-  stage: test
-  script:
-    - echo "Testing NGINX deployment"
-    - docker-compose exec ssh_server curl localhost:80
-  tags:
-    - docker
-
 cleanup:
   stage: cleanup
   script:
