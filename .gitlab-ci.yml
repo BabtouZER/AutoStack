@@ -32,7 +32,11 @@ deploy_nginx:
   script:
     - echo "Deploying NGINX using Ansible"
     - docker-compose up -d ssh_server ansible_controller
+    - echo "Checking running containers"
+    - docker ps
     - sleep 10
+    - echo "Getting logs from ssh_server"
+    - docker-compose logs ssh_server
     - docker-compose exec ansible_controller ansible-playbook -i ansible/inventory ansible/playbook.yml
     - docker-compose exec ssh_server curl localhost:80
   tags:
